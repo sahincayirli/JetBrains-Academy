@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Cinema {
+
+    private static final int ROW = 7;
+    private static final int ROW_SEAT = 8;
+
+    private static char[][] cinema = new char[ROW][ROW_SEAT];
+
+    public static void main(String[] args) {
+
+
+        for (int i = 0; i < ROW; i++) {
+            Arrays.fill(cinema[i], 'S');
+        }
+        System.out.println("Cinema:");
+        System.out.print(" ");
+        for (int i = 0; i < ROW_SEAT; i++) {
+            System.out.print(" " + (i + 1));
+        }
+        System.out.println();
+        for (int i = 0; i < cinema.length; i++) {
+            System.out.print((i + 1)+ " ");
+            System.out.println(Arrays.toString(cinema[i]).replaceAll("[\\[\\],]", ""));
+        }
+
+    }
+}

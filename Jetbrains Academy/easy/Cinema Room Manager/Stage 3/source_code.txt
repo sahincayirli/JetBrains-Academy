@@ -1,0 +1,76 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Cinema {
+
+    private static int ROWS = 0;
+    private static int SEATS = 0;
+    private static int totalPrice = 0;
+
+    private static char[][] cinema = null;
+
+    public static void main(String[] args) {
+
+        try(Scanner scanner = new Scanner(System.in)) {
+
+            System.out.println("Enter the number of rows:");
+            ROWS = scanner.nextInt();
+            System.out.println("Enter the number of seats in each rows:");
+            SEATS = scanner.nextInt();
+
+            initCinema();
+            displayCinema();
+
+            System.out.println("\nEnter a row number:");
+            int rowNo = scanner.nextInt();
+            System.out.println("Enter a seat number in that row:");
+            int seatNo = scanner.nextInt();
+
+            if (ROWS * SEATS < 60) {
+                totalPrice = 10;
+            }
+            else {
+                if (rowNo <= ROWS / 2) {
+                    totalPrice = 10;
+                }
+                else {
+                    totalPrice = 8;
+                }
+            }
+            System.out.println("\nTicket Price: $" + totalPrice + "\n");
+
+            cinema[rowNo - 1][seatNo - 1] = 'B';
+
+            displayCinema();
+
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void initCinema() {
+        cinema = new char[ROWS][SEATS];
+
+        for (int i = 0; i < ROWS; i++) {
+            Arrays.fill(cinema[i],'S');
+        }
+    }
+
+    private static void displayCinema() {
+
+        System.out.println("Cinema:");
+        System.out.print(" ");
+
+        for (int i = 0; i < SEATS; i++) {
+            System.out.print(" " + (i + 1));
+        }
+        System.out.println();
+        for (int i = 0; i < ROWS; i++) {
+            System.out.print((i + 1) + " ");
+            System.out.println(Arrays.toString(cinema[i]).replaceAll("[\\[\\],]", ""));
+        }
+
+    }
+}

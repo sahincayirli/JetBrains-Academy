@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Cinema {
+
+    private static int ROWS = 0;
+    private static int SEATS = 0;
+    private static int ticketPrice = 0;
+
+    private static char[][] cinema = null;
+
+    public static void main(String[] args) {
+
+        try(Scanner scanner = new Scanner(System.in)) {
+
+            System.out.println("Enter the number of rows:");
+            ROWS = scanner.nextInt();
+            System.out.println("Enter the number of seats in each rows:");
+            SEATS = scanner.nextInt();
+
+            if (ROWS * SEATS < 60) {
+                ticketPrice = 10 * ROWS * SEATS;
+            }
+            else {
+                ticketPrice = ROWS % 2 == 0 ? ((ROWS / 2) * 10 + (ROWS / 2) * 8) * SEATS :
+                        ((ROWS / 2) * 10 + (ROWS / 2 + 1) * 8) * SEATS;
+            }
+
+            System.out.println("Total income:");
+            System.out.println("$"+ticketPrice);
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
+    }
+}

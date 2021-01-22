@@ -1,0 +1,102 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Cinema {
+
+    private static int ROWS = 0;
+    private static int SEATS = 0;
+    private static int totalPrice = 0;
+
+    private static char[][] cinema = null;
+
+    public static void main(String[] args) {
+
+        try(Scanner scanner = new Scanner(System.in)) {
+
+            System.out.println("Enter the number of rows:");
+            ROWS = scanner.nextInt();
+            System.out.println("Enter the number of seats in each rows:");
+            SEATS = scanner.nextInt();
+
+            initCinema();
+
+            while (true)
+                menu(scanner);
+
+        }
+        catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void menu(Scanner scanner) {
+
+        System.out.println("\n1. Show the seats\n" +
+                "2. Buy a ticket\n" +
+                "0. Exit");
+
+        int choice = scanner.nextInt();
+        System.out.println();
+
+        switch (choice) {
+            case 1:
+                displayCinema();
+                System.out.println();
+                break;
+            case 2:
+                buyATicket(scanner);
+                break;
+            case 0:
+                System.exit(0);
+                break;
+        }
+
+    }
+
+    private static void initCinema() {
+        cinema = new char[ROWS][SEATS];
+
+        for (int i = 0; i < ROWS; i++) {
+            Arrays.fill(cinema[i],'S');
+        }
+    }
+
+    private static void buyATicket(Scanner scanner) {
+        System.out.println("\nEnter a row number:");
+        int rowNo = scanner.nextInt();
+        System.out.println("Enter a seat number in that row:");
+        int seatNo = scanner.nextInt();
+
+        if (ROWS * SEATS < 60) {
+            totalPrice = 10;
+        }
+        else {
+            if (rowNo <= ROWS / 2) {
+                totalPrice = 10;
+            }
+            else {
+                totalPrice = 8;
+            }
+        }
+        System.out.println("\nTicket Price: $" + totalPrice);
+
+        cinema[rowNo - 1][seatNo - 1] = 'B';
+
+    }
+    private static void displayCinema() {
+
+        System.out.println("Cinema:");
+        System.out.print(" ");
+
+        for (int i = 0; i < SEATS; i++) {
+            System.out.print(" " + (i + 1));
+        }
+        System.out.println();
+        for (int i = 0; i < ROWS; i++) {
+            System.out.print((i + 1) + " ");
+            System.out.println(Arrays.toString(cinema[i]).replaceAll("[\\[\\],]", ""));
+        }
+
+    }
+}
